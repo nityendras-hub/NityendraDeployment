@@ -8,7 +8,7 @@ st.title("🏪 SuperKart Sales Revenue Forecasting")
 st.write("Welcome to SuperKart's predictive decision support tool. This application communicates with our containerized machine learning microservice to forecast sales.")
 
 # Sidebar URL setup
-BACKEND_URL = st.sidebar.text_input("Backend API Base URL", value="http://backend-api:7860")
+BACKEND_URL = st.sidebar.text_input("Backend API Base URL", value="http://backend:7860")
 
 tab1, tab2 = st.tabs(["🎯 Single-Item Online Prediction", "📊 Multi-Item Batch Prediction"])
 

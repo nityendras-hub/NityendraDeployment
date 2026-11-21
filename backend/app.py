@@ -7,8 +7,15 @@ import io
 
 app = Flask(__name__)
 
-# Apply ProxyFix middleware so Flask correctly understands HTTPS behind the Codespace proxy
-app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
+# Apply ProxyFix middleware so Flask correctly parses forwarding headers from Codespaces
+app.wsgi_app = ProxyFix(
+    app.wsgi_app,
+    x_for=1,      # trusted headers for client IP
+    x_proto=1,    # trusted headers for scheme (http/https)
+    x_host=1,     # trusted headers for domain host
+    x_port=1,     # trusted headers for external port
+    x_prefix=1    # trusted headers for URL prefix
+)
 
 # Load the serialized model pipeline
 model_path = 'superkart_model.joblib'

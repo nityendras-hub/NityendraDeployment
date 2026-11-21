@@ -1,10 +1,14 @@
 from flask import Flask, request, jsonify
+from werkzeug.middleware.proxy_fix import ProxyFix
 import joblib
 import pandas as pd
 import os
 import io
 
 app = Flask(__name__)
+
+# Apply ProxyFix middleware so Flask correctly understands HTTPS behind the Codespace proxy
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 
 # Load the serialized model pipeline
 model_path = 'superkart_model.joblib'
